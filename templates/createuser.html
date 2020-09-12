@@ -1,0 +1,71 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('createuser') }}">Create user</a></li>
+            <li><a href="{{ url_for('limituser') }}">Limit user</a></li>
+            <li><a href="{{ url_for('deleteuser') }}">Delete user</a></li>
+            <li><a href="{{ url_for('numofruns') }}">Num of runs/user</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="{{ url_for('dashboard') }}">Overview <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="{{ url_for('createuser') }}">Create user</a></li>
+            <li><a href="{{ url_for('limituser') }}">Limit user</a></li>
+            <li><a href="{{ url_for('deleteuser') }}">Delete User</a></li>
+            <li><a href="{{ url_for('numofruns') }}">Num of runs/user</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Welcome {{ name }}</h1>
+          <div class="container">
+
+            <form class="form-signin" method="POST" action="/createuser">
+              <h2 class="form-signin-heading">Sign Up</h2>
+              {{ form.hidden_tag() }}
+              {{ wtf.form_field(form.name) }}
+              {{ wtf.form_field(form.nationality) }}
+              {{ wtf.form_field(form.phone) }}
+              {{ wtf.form_field(form.validity) }}
+              {{ wtf.form_field(form.username) }}
+              {{ wtf.form_field(form.password) }}
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+            </form>
+          
+          </div>
+         
+
+         
+      </div>
+    </div>
+{% endblock %}
